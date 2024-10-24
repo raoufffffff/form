@@ -1,13 +1,13 @@
-import axios from 'axios'
+import axios from 'axios';
 import { useEffect, useState } from 'react'
-import { Link } from 'react-router-dom'
+import { Link } from 'react-router-dom';
 
-const MainPage = () => {
+const Liv = () => {
     const [rest, setRest] = useState([])
     useEffect(() => {
         const getRest = async () => {
             try {
-                const res = await axios.get(`https://tawssilat-api.onrender.com/restaurant`);
+                const res = await axios.get(`https://tawssilat-backend-liv.onrender.com/liv`);
                 setRest(res.data.result);
                 console.log(res.data.result[0]);
 
@@ -23,7 +23,7 @@ const MainPage = () => {
         // Clean up the timeout
     }, []);
     const delet = async (e) => {
-        axios.delete(`https://tawssilat-api-1.onrender.com/restaurant/${e}`)
+        axios.delete(`https://tawssilat-backend-liv.onrender.com/liv/${e}`)
             .then(res => {
                 console.log(res.data);
 
@@ -33,7 +33,7 @@ const MainPage = () => {
         return <div key={e._id}
             className='flex h-36 w-11/12 mx-auto my-5 items-center border-b border-green-600 p-4'
         >
-            <img src={e.logo}
+            <img src="https://i.ibb.co/wY3Lxq0/images.jpg"
                 className='w-3/12 h-full mr-3'
             />
             <div
@@ -66,13 +66,6 @@ const MainPage = () => {
                     email : <h1
                         className='font-bold mx-1'
                     >{e.email}</h1>
-                </div>
-                <div
-                    className='flex'
-                >
-                    id : <h1
-                        className='font-bold mx-1'
-                    >{e._id}</h1>
                 </div>
 
 
@@ -118,11 +111,9 @@ const MainPage = () => {
                     className='text-2xl text-center'
                 >all  adds</Link>
             </div>
-            <div>
-                {myrest}
-            </div>
+            {myrest}
         </div>
     )
 }
 
-export default MainPage
+export default Liv

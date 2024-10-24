@@ -84,7 +84,7 @@ const CreateRest = () => {
             });
     }
     const post = async () => {
-        await axios.post('https://tawssilat-api-1.onrender.com/restaurant', rest)
+        await axios.post('https://tawssilat-api.onrender.com/restaurant', rest)
             .then(res => {
                 if (res.data.good) {
                     navigate('/')

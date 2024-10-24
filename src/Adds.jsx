@@ -1,15 +1,14 @@
-import axios from 'axios'
-import { useEffect, useState } from 'react'
+import axios from 'axios';
+import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom'
 
-const MainPage = () => {
+const Adds = () => {
     const [rest, setRest] = useState([])
     useEffect(() => {
         const getRest = async () => {
             try {
-                const res = await axios.get(`https://tawssilat-api.onrender.com/restaurant`);
-                setRest(res.data.result);
-                console.log(res.data.result[0]);
+                const res = await axios.get(`https://tawssilat-api.onrender.com/adds`);
+                setRest(res.data.message);
 
             } catch (error) {
                 console.error("Error fetching restaurant data:", error);
@@ -23,7 +22,7 @@ const MainPage = () => {
         // Clean up the timeout
     }, []);
     const delet = async (e) => {
-        axios.delete(`https://tawssilat-api-1.onrender.com/restaurant/${e}`)
+        axios.delete(`https://tawssilat-api.onrender.com/adds/${e}`)
             .then(res => {
                 console.log(res.data);
 
@@ -33,51 +32,10 @@ const MainPage = () => {
         return <div key={e._id}
             className='flex h-36 w-11/12 mx-auto my-5 items-center border-b border-green-600 p-4'
         >
-            <img src={e.logo}
-                className='w-3/12 h-full mr-3'
+            <img src={e.img}
+                className='w-6/12 h-full mr-3 rounded-xl'
             />
-            <div
-                className='flex flex-col w-7/12'
-            >
-                <div
-                    className='flex'>
-                    name :
-                    <h1
-                        className='font-bold mx-1'
-                    > {e.name}</h1>
-                </div>
-                <div
-                    className='flex'
-                >
-                    phone : <h1
-                        className='font-bold mx-1'
-                    >{e.phone}</h1>
-                </div>
-                <div
-                    className='flex'
-                >
-                    pass : <h1
-                        className='font-bold mx-1'
-                    >{e.password}</h1>
-                </div>
-                <div
-                    className='flex'
-                >
-                    email : <h1
-                        className='font-bold mx-1'
-                    >{e.email}</h1>
-                </div>
-                <div
-                    className='flex'
-                >
-                    id : <h1
-                        className='font-bold mx-1'
-                    >{e._id}</h1>
-                </div>
 
-
-
-            </div>
             {e.name != "FAST FOOD EL BENNA" && <button
                 onClick={() => {
                     delet(e._id)
@@ -125,4 +83,4 @@ const MainPage = () => {
     )
 }
 
-export default MainPage
+export default Adds
