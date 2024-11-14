@@ -5,6 +5,7 @@ import { RiLockPasswordLine } from "react-icons/ri"
 import { useNavigate } from "react-router-dom"
 const CreatAdds = () => {
     const navigate = useNavigate();
+    const [l, setl] = useState(false)
 
     const [rest, setrest] = useState({
         img: "",
@@ -42,10 +43,12 @@ const CreatAdds = () => {
     }
 
     const post = async () => {
+        setl(true)
         await axios.post('https://tawssilat-api.onrender.com/adds', rest)
             .then(res => {
                 if (res.data.good) {
                     navigate('/')
+                    setl(false)
                 }
             })
     }
@@ -63,7 +66,7 @@ const CreatAdds = () => {
 
             <div className="form-control">
                 <label className="label cursor-pointer">
-                    <span className="label-text">Remember me</span>
+                    <span className="label-text">inside</span>
                     <input type="checkbox" defaultChecked className="checkbox"
                         onChange={() => setrest({ ...rest, in: !rest.in })}
 
@@ -90,7 +93,7 @@ const CreatAdds = () => {
                         <input
                             type="text"
                             className="grow"
-                            placeholder="password"
+                            placeholder="_id"
                             value={rest.linkin.id}
                             onChange={(e) => {
                                 setrest({
@@ -149,8 +152,9 @@ const CreatAdds = () => {
             <button
                 onClick={() => post()}
                 className="my-5 text-white bg-green-600 w-8/12 mx-auto py-1 rounded-xl"
-            >post</button>
-        </div >
+            >{l ? <div className="animate-spin h-5 w-5  border-2 border-l-4 border-[#fff] rounded-full mx-auto" >
+            </div> : "post"}</button>
+        </div>
     )
 }
 

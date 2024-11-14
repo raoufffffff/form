@@ -7,7 +7,7 @@ import { useNavigate } from "react-router-dom";
 
 const Createliv = () => {
     const navigate = useNavigate();
-
+    const [l, setl] = useState(false)
     const [rest, setrest] = useState({
         name: "",
         email: "",
@@ -20,9 +20,11 @@ const Createliv = () => {
 
 
     const post = async () => {
+        setl(true)
         await axios.post('https://tawssilat-backend-liv.onrender.com/liv', rest)
             .then(res => {
                 if (res.data.good) {
+                    setl(false)
                     navigate('/')
                 }
             })
@@ -100,7 +102,8 @@ const Createliv = () => {
             <button
                 onClick={() => post()}
                 className="my-5 text-white bg-green-600 w-8/12 mx-auto py-1 rounded-xl"
-            >post</button>
+            >{l ? <div className="animate-spin h-5 w-5  border-2 border-l-4 border-[#fff] rounded-full mx-auto" >
+            </div> : "post"}</button>
         </div>
     )
 }

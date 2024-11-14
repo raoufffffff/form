@@ -1,9 +1,10 @@
 import axios from 'axios';
 import { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom'
 
 const Adds = () => {
     const [rest, setRest] = useState([])
+    const [l, setl] = useState(true)
+
     useEffect(() => {
         const getRest = async () => {
             try {
@@ -12,6 +13,8 @@ const Adds = () => {
 
             } catch (error) {
                 console.error("Error fetching restaurant data:", error);
+            } finally {
+                setl(false)
             }
         };
 
@@ -27,6 +30,69 @@ const Adds = () => {
                 console.log(res.data);
 
             })
+    }
+    if (l) {
+        return <div className=" animate-pulse w-10/12 mx-auto flex-wrap flex justify-center gap-5 ">
+            <div
+                className='w-11/12 md:w-3/12 shadow-xl h-fit'
+            >
+                <div
+                    className=' w-full h-20 bg-slate-500'
+                >
+
+                </div>
+                <div className="flex-1 space-y-6 py-1">
+                    <div className="h-2 bg-slate-700 rounded"></div>
+                    <div className="space-y-3">
+                        <div className="grid grid-cols-3 gap-4">
+                            <div className="h-2 bg-slate-700 rounded col-span-2"></div>
+                            <div className="h-2 bg-slate-700 rounded col-span-1"></div>
+                        </div>
+                        <div className="h-2 bg-slate-700 rounded"></div>
+                    </div>
+                </div>
+            </div>
+            <div
+                className='w-11/12 md:w-3/12 shadow-xl h-fit'
+            >
+                <div
+                    className=' w-full h-20 bg-slate-500'
+                >
+
+                </div>
+                <div className="flex-1 space-y-6 py-1">
+                    <div className="h-2 bg-slate-700 rounded"></div>
+                    <div className="space-y-3">
+                        <div className="grid grid-cols-3 gap-4">
+                            <div className="h-2 bg-slate-700 rounded col-span-2"></div>
+                            <div className="h-2 bg-slate-700 rounded col-span-1"></div>
+                        </div>
+                        <div className="h-2 bg-slate-700 rounded"></div>
+                    </div>
+                </div>
+            </div>
+            <div
+                className='w-11/12 md:w-3/12 shadow-xl h-fit'
+            >
+                <div
+                    className=' w-full h-20 bg-slate-500'
+                >
+
+                </div>
+                <div className="flex-1 space-y-6 py-1">
+                    <div className="h-2 bg-slate-700 rounded"></div>
+                    <div className="space-y-3">
+                        <div className="grid grid-cols-3 gap-4">
+                            <div className="h-2 bg-slate-700 rounded col-span-2"></div>
+                            <div className="h-2 bg-slate-700 rounded col-span-1"></div>
+                        </div>
+                        <div className="h-2 bg-slate-700 rounded"></div>
+                    </div>
+                </div>
+            </div>
+
+
+        </div>
     }
     const myrest = rest.map(e => {
         return <div key={e._id}
@@ -47,35 +113,7 @@ const Adds = () => {
         <div
             className='w-full'
         >
-            <div
-                className='flex '
-            >
 
-                <Link
-                    className='flex bg-green-600 w-fit mx-auto my-10 text-white rounded-xl px-5 py-2'
-                    to={'/create'}>create restaurants</Link>
-                <Link
-                    className='flex bg-green-600 w-fit mx-auto my-10 text-white rounded-xl px-5 py-2'
-                    to={'/createliv'}>create livror</Link>
-                <Link
-                    className='flex bg-green-600 w-fit mx-auto my-10 text-white rounded-xl px-5 py-2'
-                    to={'/createadds'}>create adds</Link>
-            </div>
-            <div className='flex justify-between px-10'>
-
-                <Link
-                    to={'/'}
-                    className='text-2xl text-center'
-                >all  restaurants</Link>
-                <Link
-                    to={'/liv'}
-                    className='text-2xl text-center'
-                >all  livror</Link>
-                <Link
-                    to={'/adds'}
-                    className='text-2xl text-center'
-                >all  adds</Link>
-            </div>
             <div>
                 {myrest}
             </div>

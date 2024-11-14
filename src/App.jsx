@@ -1,5 +1,6 @@
 import { Outlet } from 'react-router-dom'
 import './App.css'
+import Header from './compunent/Header'
 
 function App() {
   // const options = {
@@ -25,9 +26,14 @@ function App() {
 
 
   return (<div
-    className='w-full flex flex-col'
+    className='w-full flex flex-col overflow-hidden'
   >
-    <Outlet />
+    <Header />
+    <div
+      className='my-4'
+    >
+      <Outlet />
+    </div>
 
   </div>
   )

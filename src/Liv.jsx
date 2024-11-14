@@ -1,117 +1,165 @@
 import axios from 'axios';
 import { useEffect, useState } from 'react'
-import { Link } from 'react-router-dom';
 
 const Liv = () => {
     const [rest, setRest] = useState([])
-    useEffect(() => {
-        const getRest = async () => {
-            try {
-                const res = await axios.get(`https://tawssilat-backend-liv.onrender.com/liv`);
-                setRest(res.data.result);
-                console.log(res.data.result[0]);
+    const [l, setl] = useState(true)
 
-            } catch (error) {
-                console.error("Error fetching restaurant data:", error);
-            }
-        };
+    const getRest = async () => {
+        try {
+            const res = await axios.get(`https://tawssilat-backend-liv.onrender.com/liv`);
+            setRest(res.data.result);
+
+        } catch (error) {
+            console.error("Error fetching restaurant data:", error);
+        } finally {
+            setl(false)
+        }
+    };
+    useEffect(() => {
+
 
         getRest();
 
 
 
-        // Clean up the timeout
     }, []);
     const delet = async (e) => {
         axios.delete(`https://tawssilat-backend-liv.onrender.com/liv/${e}`)
-            .then(res => {
-                console.log(res.data);
+            .then(() => {
+                getRest()
 
             })
     }
-    const myrest = rest.map(e => {
-        return <div key={e._id}
-            className='flex h-36 w-11/12 mx-auto my-5 items-center border-b border-green-600 p-4'
-        >
-            <img src="https://i.ibb.co/wY3Lxq0/images.jpg"
-                className='w-3/12 h-full mr-3'
-            />
+    if (l) {
+        return <div className=" animate-pulse w-10/12 mx-auto flex-wrap flex justify-center gap-5 ">
             <div
-                className='flex flex-col w-7/12'
+                className='w-11/12 md:w-3/12 shadow-xl h-fit'
             >
                 <div
-                    className='flex'>
-                    name :
-                    <h1
-                        className='font-bold mx-1'
-                    > {e.name}</h1>
-                </div>
-                <div
-                    className='flex'
+                    className=' w-full h-20 bg-slate-500'
                 >
-                    phone : <h1
-                        className='font-bold mx-1'
-                    >{e.phone}</h1>
-                </div>
-                <div
-                    className='flex'
-                >
-                    pass : <h1
-                        className='font-bold mx-1'
-                    >{e.password}</h1>
-                </div>
-                <div
-                    className='flex'
-                >
-                    email : <h1
-                        className='font-bold mx-1'
-                    >{e.email}</h1>
-                </div>
 
-
-
+                </div>
+                <div className="flex-1 space-y-6 py-1">
+                    <div className="h-2 bg-slate-700 rounded"></div>
+                    <div className="space-y-3">
+                        <div className="grid grid-cols-3 gap-4">
+                            <div className="h-2 bg-slate-700 rounded col-span-2"></div>
+                            <div className="h-2 bg-slate-700 rounded col-span-1"></div>
+                        </div>
+                        <div className="h-2 bg-slate-700 rounded"></div>
+                    </div>
+                </div>
             </div>
-            {e.name != "FAST FOOD EL BENNA" && <button
-                onClick={() => {
-                    delet(e._id)
-                }}
-                className='bg-red-600 px-2 py-1 rounded-xl text-white mx-auto w-fit'>delete</button>}
+            <div
+                className='w-11/12 md:w-3/12 shadow-xl h-fit'
+            >
+                <div
+                    className=' w-full h-20 bg-slate-500'
+                >
+
+                </div>
+                <div className="flex-1 space-y-6 py-1">
+                    <div className="h-2 bg-slate-700 rounded"></div>
+                    <div className="space-y-3">
+                        <div className="grid grid-cols-3 gap-4">
+                            <div className="h-2 bg-slate-700 rounded col-span-2"></div>
+                            <div className="h-2 bg-slate-700 rounded col-span-1"></div>
+                        </div>
+                        <div className="h-2 bg-slate-700 rounded"></div>
+                    </div>
+                </div>
+            </div>
+            <div
+                className='w-11/12 md:w-3/12 shadow-xl h-fit'
+            >
+                <div
+                    className=' w-full h-20 bg-slate-500'
+                >
+
+                </div>
+                <div className="flex-1 space-y-6 py-1">
+                    <div className="h-2 bg-slate-700 rounded"></div>
+                    <div className="space-y-3">
+                        <div className="grid grid-cols-3 gap-4">
+                            <div className="h-2 bg-slate-700 rounded col-span-2"></div>
+                            <div className="h-2 bg-slate-700 rounded col-span-1"></div>
+                        </div>
+                        <div className="h-2 bg-slate-700 rounded"></div>
+                    </div>
+                </div>
+            </div>
+
+
         </div>
+    }
+
+    const myrest = rest.map(e => {
+        return <tr key={e._id}>
+
+            <td>
+                <div className="flex items-center gap-3">
+                    <div className="avatar">
+                        <div className="mask mask-squircle h-12 w-12">
+                            <img
+                                src="https://i.ibb.co/wY3Lxq0/images.jpg"
+                                alt="Avatar Tailwind CSS Component" />
+                        </div>
+                    </div>
+                    <div>
+                        <div className="font-bold">{e.name}</div>
+                        <div className="text-sm opacity-50">{e.phone}</div>
+                    </div>
+                </div>
+            </td>
+            <td>
+                {e.email}
+            </td>
+            <td>{e.password}</td>
+            <th>
+                <button
+                    onClick={() => delet(e._id)}
+                    className="btn btn-ghost btn-xs text-red-600">delete</button>
+            </th>
+        </tr>
     })
     return (
         <div
             className='w-full'
         >
-            <div
-                className='flex '
-            >
+            <div className="overflow-x-auto">
+                <table className="table">
+                    {/* head */}
+                    <thead>
+                        <tr>
 
-                <Link
-                    className='flex bg-green-600 w-fit mx-auto my-10 text-white rounded-xl px-5 py-2'
-                    to={'/create'}>create restaurants</Link>
-                <Link
-                    className='flex bg-green-600 w-fit mx-auto my-10 text-white rounded-xl px-5 py-2'
-                    to={'/createliv'}>create livror</Link>
-                <Link
-                    className='flex bg-green-600 w-fit mx-auto my-10 text-white rounded-xl px-5 py-2'
-                    to={'/createadds'}>create adds</Link>
-            </div>
-            <div className='flex justify-between px-10'>
+                            <th>Name</th>
+                            <th>email</th>
+                            <th>pass</th>
+                            <th>delete</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {/* row 1 */}
+                        {myrest}
 
-                <Link
-                    to={'/'}
-                    className='text-2xl text-center'
-                >all  restaurants</Link>
-                <Link
-                    to={'/liv'}
-                    className='text-2xl text-center'
-                >all  livror</Link>
-                <Link
-                    to={'/adds'}
-                    className='text-2xl text-center'
-                >all  adds</Link>
+                    </tbody>
+                    {/* foot */}
+                    <tfoot>
+                        <tr>
+                            <th>Name</th>
+                            <th>email</th>
+                            <th>pass</th>
+                            <th>delete</th>
+                            <th></th>
+                        </tr>
+                    </tfoot>
+                </table>
             </div>
-            {myrest}
+
+
         </div>
     )
 }

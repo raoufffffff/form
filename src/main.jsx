@@ -9,6 +9,7 @@ import Createliv from './Createliv.jsx';
 import Liv from './Liv.jsx';
 import Adds from './Adds.jsx';
 import CreatAdds from './CreatAdds.jsx';
+import Rest from './pages/Rest.jsx';
 
 const router = createBrowserRouter(createRoutesFromElements(
   <Route path="/" element={<App />}>
@@ -18,6 +19,7 @@ const router = createBrowserRouter(createRoutesFromElements(
     <Route path='liv' element={<Liv />} />
     <Route path='adds' element={<Adds />} />
     <Route path='createadds' element={<CreatAdds />} />
+    <Route path='rest/:id' element={<Rest />} />
 
 
   </Route>
